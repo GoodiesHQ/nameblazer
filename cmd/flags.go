@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+const (
+	DEFAULT_WORKERS int           = 25
+	DEFAULT_TIMEOUT time.Duration = 1000 * time.Millisecond
+)
+
 type stringlist []string
 
 func (l *stringlist) String() string {
@@ -19,11 +24,11 @@ func (l *stringlist) Set(val string) error {
 }
 
 func flags() *NameBlazerSettings {
-	workers := flag.Int("workers", 10, "Number of concurrent workers")
-	flag.IntVar(workers, "w", 10, "Number of concurrent workers (alias)")
+	workers := flag.Int("workers", DEFAULT_WORKERS, "Number of concurrent workers")
+	flag.IntVar(workers, "w", DEFAULT_WORKERS, "Number of concurrent workers (alias)")
 
-	timeout := flag.Duration("timeout", 500*time.Millisecond, "DNS Timeout")
-	flag.DurationVar(timeout, "t", 500*time.Millisecond, "DNS timeout (alias)")
+	timeout := flag.Duration("timeout", DEFAULT_TIMEOUT, "DNS Timeout")
+	flag.DurationVar(timeout, "t", DEFAULT_TIMEOUT, "DNS timeout (alias)")
 
 	domainsFile := flag.String("domains", "", "File containing the base domain names")
 	flag.StringVar(domainsFile, "d", "", "File containing the base domain names (alias)")
